@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>kaggle入门竞赛-泰坦尼克号 | CodeTrainer</title><meta name="description" content="kaggle入门竞赛-泰坦尼克号"><meta name="keywords" content="机器学习"><meta name="author" content="大巴斯基"><meta name="copyright" content="大巴斯基"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon1.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><meta name="twitter:card" content="summary"><meta name="twitter:title" content="kaggle入门竞赛-泰坦尼克号"><meta name="twitter:description" content="kaggle入门竞赛-泰坦尼克号"><meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta property="og:type" content="article"><meta property="og:title" content="kaggle入门竞赛-泰坦尼克号"><meta property="og:url" content="http://nieblog.me/2020/03/07/titanic/"><meta property="og:site_name" content="CodeTrainer"><meta property="og:description" content="kaggle入门竞赛-泰坦尼克号"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://nieblog.me/2020/03/07/titanic/"><link rel="next" title="kaggle入门竞赛-数字识别" href="http://nieblog.me/2020/03/07/digit-recognizer/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script></head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">CodeTrainer</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">23</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">6</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#比赛说明"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text"> 比赛说明</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#一-数据分析"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text"> 一、数据分析</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据的下载与观察"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text"> 数据的下载与观察</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#特征详情"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text"> 特征详情</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#二-数据工程"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text"> 二、数据工程</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#特征处理"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text"> 特征处理</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#构建新特征"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text"> 构建新特征</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#三-建立模型"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text"> 三、建立模型</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#四-模型优化"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text"> 四、模型优化</span></a></li></ol></div></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#比赛说明"><span class="toc-number">1.</span> <span class="toc-text"> 比赛说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-数据分析"><span class="toc-number">2.</span> <span class="toc-text"> 一、数据分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据的下载与观察"><span class="toc-number">2.1.</span> <span class="toc-text"> 数据的下载与观察</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征详情"><span class="toc-number">2.2.</span> <span class="toc-text"> 特征详情</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-数据工程"><span class="toc-number">3.</span> <span class="toc-text"> 二、数据工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#特征处理"><span class="toc-number">3.1.</span> <span class="toc-text"> 特征处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建新特征"><span class="toc-number">3.2.</span> <span class="toc-text"> 构建新特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-建立模型"><span class="toc-number">4.</span> <span class="toc-text"> 三、建立模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-模型优化"><span class="toc-number">5.</span> <span class="toc-text"> 四、模型优化</span></a></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png)"><div id="post-info"><div id="post-title"><div class="posttitle">kaggle入门竞赛-泰坦尼克号</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-03-07<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-03-07</time><div class="post-meta-wordcount"><div class="post-meta-pv-cv"></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h2 id="比赛说明"><a class="markdownIt-Anchor" href="#比赛说明"></a> 比赛说明</h2>
+<p><a href="https://github.com/ni-me/kaggle-getting-started/tree/master/titanic" target="_blank" rel="noopener">完整代码</a></p>
+<blockquote>
+<p>The sinking of the Titanic is one of the most infamous shipwrecks in history.</p>
+<p>On April 15, 1912, during her maiden voyage, the widely considered “unsinkable” RMS Titanic sank after colliding with an iceberg. Unfortunately, there weren’t enough lifeboats for everyone onboard, resulting in the death of 1502 out of 2224 passengers and crew.</p>
+<p>While there was some element of luck involved in surviving, it seems some groups of people were more likely to survive than others.</p>
+<p>In this challenge, we ask you to build a predictive model that answers the question: “what sorts of people were more likely to survive?” using passenger data (ie name, age, gender, socio-economic class, etc).</p>
+</blockquote>
+<h2 id="一-数据分析"><a class="markdownIt-Anchor" href="#一-数据分析"></a> 一、数据分析</h2>
+<h3 id="数据的下载与观察"><a class="markdownIt-Anchor" href="#数据的下载与观察"></a> 数据的下载与观察</h3>
+<ul>
+<li>
+<p><a href="https://www.kaggle.com/c/titanic/data" target="_blank" rel="noopener">数据下载</a></p>
+</li>
+<li>
+<p>特征说明</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Varialbe</th>
+<th style="text-align:center">Definition</th>
+<th style="text-align:center">Key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">survival</td>
+<td style="text-align:center">Survival</td>
+<td style="text-align:center">0 = NO, 1 = Yes</td>
+</tr>
+<tr>
+<td style="text-align:center">pclass</td>
+<td style="text-align:center">Ticket class</td>
+<td style="text-align:center">1 = 1st, 2 = 2nd, 3 = 3rd</td>
+</tr>
+<tr>
+<td style="text-align:center">sex</td>
+<td style="text-align:center">Sex</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Age</td>
+<td style="text-align:center">Age in years</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">sibsp</td>
+<td style="text-align:center"># of siblings / spouses aboard the Titanic</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">parch</td>
+<td style="text-align:center"># of parents / children aboard the Titanic</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">ticket</td>
+<td style="text-align:center">Ticket number</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">fare</td>
+<td style="text-align:center">Passenger fare</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cabin</td>
+<td style="text-align:center">Cabin number</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">embarked</td>
+<td style="text-align:center">Port of Embarkation</td>
+<td style="text-align:center">C = Cherbourg, Q = Queenstown, S = Southampton</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特征详情"><a class="markdownIt-Anchor" href="#特征详情"></a> 特征详情</h3>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p1.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p1.jpg" alt title></a></p>
+<h2 id="二-数据工程"><a class="markdownIt-Anchor" href="#二-数据工程"></a> 二、数据工程</h2>
+<h3 id="特征处理"><a class="markdownIt-Anchor" href="#特征处理"></a> 特征处理</h3>
+<p>我们首先看看数据有没有缺失值：</p>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p2.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p2.jpg" alt title></a></p>
+<p>发现’Age’、‘Cabin’、'Embarked’和’Fare’有缺失值：</p>
+<ul>
+<li>'Embarked’用众数填充；</li>
+<li>'Fare’和’Pclass’相关，所以用和缺失值相同的’Pclass’样本的’Fare’中位数填充；</li>
+<li>'Cabin’缺失值，用是否有’Cabin’为依据来填充，'Cabin’不为空填1，为空填0；</li>
+<li>'Age’我们用构建其他特征的方式来处理;</li>
+</ul>
+<p>我们通过提取’name’中的称呼，构建了一个特征’Title’：</p>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p3.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p3.jpg" alt title></a></p>
+<p>查看’Master’的’Age’，可以看出’Master’是小男孩，我们希望把小女孩也找出来：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.Age.fillna(<span class="number">999</span>, inplace=<span class="keyword">True</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">filter_girl</span><span class="params">(person)</span>:</span></div><div class="line">    <span class="keyword">if</span>(person.Age != <span class="number">999</span>)  <span class="keyword">and</span>  (person.Age &lt;= <span class="number">14</span>) <span class="keyword">and</span> (person.Title == <span class="string">'Miss'</span>):</div><div class="line">        <span class="keyword">return</span> <span class="string">'Girl'</span></div><div class="line">    <span class="keyword">if</span>(person.Age == <span class="number">999</span>)  <span class="keyword">and</span>  (person.Parch != <span class="number">0</span>) <span class="keyword">and</span> (person.Title == <span class="string">'Miss'</span>):</div><div class="line">        <span class="keyword">return</span> <span class="string">'Girl'</span></div><div class="line">    <span class="keyword">return</span> person.Title</div><div class="line"></div><div class="line"></div><div class="line">full[<span class="string">'Title'</span>] = full.apply(filter_girl, axis=<span class="number">1</span>)</div></pre></td></tr></table></figure></div>
+<p>最后，我们根据’Title’来的’Age’中位数来填充’Age’的缺失值：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Tit=[<span class="string">'Mr'</span>,<span class="string">'Miss'</span>,<span class="string">'Mrs'</span>,<span class="string">'Master'</span>,<span class="string">'Girl'</span>,<span class="string">'Rareman'</span>,<span class="string">'Rarewoman'</span>]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> Tit:</div><div class="line">    full.loc[(full.Age==<span class="number">999</span>)&amp;(full.Title==i),<span class="string">'Age'</span>]=full.loc[full.Title==i,<span class="string">'Age'</span>].median()</div></pre></td></tr></table></figure></div>
+<p>现在我们完成了了对缺失值的处理。</p>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p4.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p4.jpg" alt title></a></p>
+<h3 id="构建新特征"><a class="markdownIt-Anchor" href="#构建新特征"></a> 构建新特征</h3>
+<ul>
+<li>对’Fare’进行分箱,构建’FareCut’</li>
+<li>对’Age’进行分箱,构建’AgeCut’</li>
+</ul>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">full.AgeCut = pd.cut(full.Age, <span class="number">5</span>)</div><div class="line">full.FareCut = pd.qcut(full.Fare, <span class="number">5</span>)</div><div class="line"></div><div class="line">full.loc[full.Age&lt;=<span class="number">16.136</span>,<span class="string">'AgeCut'</span>]=<span class="number">1</span></div><div class="line">full.loc[(full.Age&gt;<span class="number">16.136</span>)&amp;(full.Age&lt;=<span class="number">32.102</span>),<span class="string">'AgeCut'</span>]=<span class="number">2</span></div><div class="line">full.loc[(full.Age&gt;<span class="number">32.102</span>)&amp;(full.Age&lt;=<span class="number">48.068</span>),<span class="string">'AgeCut'</span>]=<span class="number">3</span></div><div class="line">full.loc[(full.Age&gt;<span class="number">48.068</span>)&amp;(full.Age&lt;=<span class="number">64.034</span>),<span class="string">'AgeCut'</span>]=<span class="number">4</span></div><div class="line">full.loc[full.Age&gt;<span class="number">64.034</span>,<span class="string">'AgeCut'</span>]=<span class="number">5</span></div><div class="line"></div><div class="line">full.loc[full.Fare&lt;=<span class="number">7.854</span>,<span class="string">'FareCut'</span>]=<span class="number">1</span></div><div class="line">full.loc[(full.Fare&gt;<span class="number">7.854</span>)&amp;(full.Fare&lt;=<span class="number">10.5</span>),<span class="string">'FareCut'</span>]=<span class="number">2</span></div><div class="line">full.loc[(full.Fare&gt;<span class="number">10.5</span>)&amp;(full.Fare&lt;=<span class="number">21.558</span>),<span class="string">'FareCut'</span>]=<span class="number">3</span></div><div class="line">full.loc[(full.Fare&gt;<span class="number">21.558</span>)&amp;(full.Fare&lt;=<span class="number">41.579</span>),<span class="string">'FareCut'</span>]=<span class="number">4</span></div><div class="line">full.loc[full.Fare&gt;<span class="number">41.579</span>,<span class="string">'FareCut'</span>]=<span class="number">5</span></div></pre></td></tr></table></figure></div>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p5.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p5.jpg" alt title></a></p>
+<p>再将’Title’, 'Parch’和’Pclass’综合考虑，看看存活率。<br>
+<a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p6.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p6.jpg" alt title></a></p>
+<p>构建特征’TPP’:</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># use 'Title','Pclass','Parch' to generate feature 'TPP'.</span></div><div class="line">Tit=[<span class="string">'Girl'</span>,<span class="string">'Master'</span>,<span class="string">'Mr'</span>,<span class="string">'Miss'</span>,<span class="string">'Mrs'</span>,<span class="string">'Rareman'</span>,<span class="string">'Rarewoman'</span>]</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> Tit:</div><div class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">4</span>):</div><div class="line">        <span class="keyword">for</span> g <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">10</span>):</div><div class="line">            <span class="keyword">if</span> full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g)&amp;(full.Survived.notnull()),<span class="string">'Survived'</span>].mean()&gt;=<span class="number">0.8</span>:</div><div class="line">                full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g),<span class="string">'TPP'</span>]=<span class="number">1</span></div><div class="line">            <span class="keyword">elif</span> full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g)&amp;(full.Survived.notnull()),<span class="string">'Survived'</span>].mean()&gt;=<span class="number">0.5</span>:</div><div class="line">                full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g),<span class="string">'TPP'</span>]=<span class="number">2</span></div><div class="line">            <span class="keyword">elif</span> full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g)&amp;(full.Survived.notnull()),<span class="string">'Survived'</span>].mean()&gt;=<span class="number">0</span>:</div><div class="line">                full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g),<span class="string">'TPP'</span>]=<span class="number">3</span></div><div class="line">            <span class="keyword">else</span>: </div><div class="line">                full.loc[(full.Title==i)&amp;(full.Pclass==j)&amp;(full.Parch==g),<span class="string">'TPP'</span>]=<span class="number">4</span></div><div class="line"></div><div class="line">full[full.Survived.notnull()].pivot_table(index=[<span class="string">'Sex'</span>,<span class="string">'Pclass'</span>],values=[<span class="string">'Survived'</span>]).sort_values(<span class="string">'Survived'</span>,ascending=<span class="keyword">False</span>)</div><div class="line"></div><div class="line">full.ix[(full.TPP==<span class="number">4</span>)&amp;(full.Sex==<span class="string">'female'</span>)&amp;(full.Pclass!=<span class="number">3</span>),<span class="string">'TPP'</span>]=<span class="number">1</span></div><div class="line">full.ix[(full.TPP==<span class="number">4</span>)&amp;(full.Sex==<span class="string">'female'</span>)&amp;(full.Pclass==<span class="number">3</span>),<span class="string">'TPP'</span>]=<span class="number">2</span></div><div class="line">full.ix[(full.TPP==<span class="number">4</span>)&amp;(full.Sex==<span class="string">'male'</span>), <span class="string">'TPP'</span>]=<span class="number">3</span></div></pre></td></tr></table></figure></div>
+<h2 id="三-建立模型"><a class="markdownIt-Anchor" href="#三-建立模型"></a> 三、建立模型</h2>
+<p>使用交叉验证法来训练模型，模型包括：</p>
+<ul>
+<li>KNN</li>
+<li>Logistic Regression</li>
+<li>Random Forest</li>
+<li>SVM</li>
+<li>Gradient Boosting Decision Tree</li>
+</ul>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score</div><div class="line"><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</div><div class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</div><div class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</div><div class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> GradientBoostingClassifier</div><div class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> SVC</div><div class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler</div><div class="line"></div><div class="line">models = [KNeighborsClassifier(), LogisticRegression(), RandomForestClassifier(), </div><div class="line">         GradientBoostingClassifier(), SVC()]</div><div class="line"></div><div class="line">X_train = full_dummies[: <span class="number">891</span>]</div><div class="line">y_train = full.Survived[: <span class="number">891</span>]</div><div class="line">X_test = full_dummies[<span class="number">891</span> :]</div><div class="line"></div><div class="line"></div><div class="line">scaler = StandardScaler().fit(X_train)</div><div class="line">X_train_scaled = scaler.transform(X_train)</div><div class="line">X_test_scaled = scaler.transform(X_test)</div><div class="line"></div><div class="line">names = [<span class="string">'KNN'</span>, <span class="string">'LR'</span>, <span class="string">'RF'</span>, <span class="string">'GBDT'</span>, <span class="string">'SVM'</span>]</div><div class="line"><span class="keyword">for</span> name, model <span class="keyword">in</span> zip(names, models):</div><div class="line">    score = cross_val_score(model, X_train_scaled, y_train, cv=<span class="number">5</span>)</div><div class="line">    print(<span class="string">'&#123;&#125;:\nmean:&#123;:.2f&#125;\n&#123;&#125;\n'</span>.format(name, score.mean(), score))</div></pre></td></tr></table></figure></div>
+<p>得出结果：</p>
+<ul>
+<li>
+<p>KNN:</p>
+<ul>
+<li>mean:0.81</li>
+<li>[0.82122905 0.77653631 0.80337079 0.80898876 0.83615819]</li>
+</ul>
+</li>
+<li>
+<p>LR:</p>
+<ul>
+<li>mean:0.83</li>
+<li>[0.82681564 0.81564246 0.8258427  0.83146067 0.86440678]</li>
+</ul>
+</li>
+<li>
+<p>RF:</p>
+<ul>
+<li>mean:0.81</li>
+<li>[0.82681564 0.77653631 0.84269663 0.76966292 0.83615819]</li>
+</ul>
+</li>
+<li>
+<p>GBDT:</p>
+<ul>
+<li>mean:0.84</li>
+<li>[0.8547486  0.80446927 0.86516854 0.80337079 0.87570621]</li>
+</ul>
+</li>
+<li>
+<p>SVM:</p>
+<ul>
+<li>mean:0.83</li>
+<li>[0.82681564 0.82681564 0.83146067 0.79775281 0.8700565]</li>
+</ul>
+</li>
+</ul>
+<p>可以看出， GBDT的表现最好。</p>
+<p>我们在对分类错误的样本进行观察：</p>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p7.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p7.jpg" alt title></a></p>
+<p>我们重点关注那些错误分类数目多的样本，就是：</p>
+<ul>
+<li>‘Mr’,‘Pclass 1’,‘Parch 0’,‘SibSp 0\1’, 17+8</li>
+<li>‘Mr’,‘Pclass 2\3’,‘Parch 0’,‘SibSp 0’, 32+7</li>
+<li>‘Miss’,‘Pclass 3’,‘Parch 0’,‘SibSp 0’, 21</li>
+</ul>
+<p>我们再构造一个特征’MPP’:</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">full.loc[(full.Title==<span class="string">'Mr'</span>)&amp;(full.Pclass==<span class="number">1</span>)&amp;(full.Parch==<span class="number">0</span>)&amp;((full.SibSp==<span class="number">0</span>)|(full.SibSp==<span class="number">1</span>)),<span class="string">'MPPS'</span>]=<span class="number">1</span></div><div class="line">full.loc[(full.Title==<span class="string">'Mr'</span>)&amp;(full.Pclass!=<span class="number">1</span>)&amp;(full.Parch==<span class="number">0</span>)&amp;(full.SibSp==<span class="number">0</span>),<span class="string">'MPPS'</span>]=<span class="number">2</span></div><div class="line">full.loc[(full.Title==<span class="string">'Miss'</span>)&amp;(full.Pclass==<span class="number">3</span>)&amp;(full.Parch==<span class="number">0</span>)&amp;(full.SibSp==<span class="number">0</span>),<span class="string">'MPPS'</span>]=<span class="number">3</span></div><div class="line">full.MPPS.fillna(<span class="number">4</span>,inplace=<span class="keyword">True</span>)</div></pre></td></tr></table></figure></div>
+<p>最后画一下相关系数热图：</p>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p8.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p8.jpg" alt title></a></p>
+<h2 id="四-模型优化"><a class="markdownIt-Anchor" href="#四-模型优化"></a> 四、模型优化</h2>
+<p>下面利用网格搜索来查找表现好的模型和模型参数：</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</div><div class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</div><div class="line"></div><div class="line">predictors=[<span class="string">'Cabin'</span>,<span class="string">'Embarked'</span>,<span class="string">'Parch'</span>,<span class="string">'Pclass'</span>,<span class="string">'Sex'</span>,<span class="string">'SibSp'</span>,<span class="string">'Title'</span>,<span class="string">'AgeCut'</span>,<span class="string">'TPP'</span>,<span class="string">'FareCut'</span>,<span class="string">'Age'</span>,<span class="string">'Fare'</span>,<span class="string">'MPPS'</span>]</div><div class="line">full_dummies=pd.get_dummies(full[predictors])</div><div class="line"></div><div class="line">X_train=full_dummies[:<span class="number">891</span>]</div><div class="line">y_train=full.Survived[:<span class="number">891</span>]</div><div class="line">X_test=full_dummies[<span class="number">891</span>:]</div><div class="line"></div><div class="line">X_train_scaled = scaler.fit(X_train).transform(X_train)</div><div class="line">X_test_scaled = scaler.transform(X_test)</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">pipe = Pipeline([(<span class="string">'preprocessing'</span>, StandardScaler()), (<span class="string">'classifier'</span>, SVC())])</div><div class="line">param_grid = [&#123;<span class="string">'classifier'</span> : [KNeighborsClassifier()], <span class="string">'preprocessing'</span> : [<span class="keyword">None</span>], <span class="string">'classifier__n_neighbors'</span> : [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]&#125;,</div><div class="line">             &#123;<span class="string">'classifier'</span> : [LogisticRegression()], <span class="string">'preprocessing'</span> : [<span class="keyword">None</span>], <span class="string">'classifier__C'</span> : [<span class="number">0.001</span>, <span class="number">0.01</span>, <span class="number">0.1</span>, <span class="number">1</span>, <span class="number">10</span>]&#125;,</div><div class="line">             &#123;<span class="string">'classifier'</span> : [SVC()], <span class="string">'preprocessing'</span> : [<span class="keyword">None</span>], <span class="string">'classifier__gamma'</span> : [<span class="number">0.001</span>, <span class="number">0.01</span>, <span class="number">0.1</span>, <span class="number">1</span>, <span class="number">10</span>], <span class="string">'classifier__C'</span> : [<span class="number">0.001</span>, <span class="number">0.01</span>, <span class="number">0.1</span>, <span class="number">1</span>, <span class="number">10</span>]&#125;,</div><div class="line">             &#123;<span class="string">'classifier'</span> : [GradientBoostingClassifier()], <span class="string">'preprocessing'</span> : [<span class="keyword">None</span>], <span class="string">'classifier__n_estimators'</span> : [<span class="number">30</span>,<span class="number">50</span>,<span class="number">80</span>,<span class="number">120</span>,<span class="number">200</span>], </div><div class="line">              <span class="string">'classifier__learning_rate'</span> : [<span class="number">0.05</span>,<span class="number">0.1</span>,<span class="number">0.5</span>,<span class="number">1</span>], <span class="string">'classifier__max_depth'</span> : [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]&#125;]</div><div class="line"></div><div class="line">grid = GridSearchCV(pipe, param_grid=param_grid, cv=<span class="number">5</span>)</div><div class="line">grid.fit(X_train_scaled, y_train)</div></pre></td></tr></table></figure></div>
+<p><a href="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p9.jpg" data-fancybox="group" data-caption class="fancybox"><img src="https://blog-1252579361.cos.ap-beijing.myqcloud.com/blog_20_03_07/p9.jpg" alt title></a></p>
+<p>现在我们找到了表现最好的模型和对应参数，下面我们来对测试集进行预测:</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">y_predict = grid.predict(X_test_scaled)</div><div class="line">result = pd.DataFrame(&#123;<span class="string">'PassengerId'</span> : test.PassengerId, <span class="string">'Survived'</span> : y_predict&#125;)</div><div class="line">result.to_csv(<span class="string">'data/result.csv'</span>, index=<span class="keyword">False</span>)</div></pre></td></tr></table></figure></div>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">大巴斯基</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://nieblog.me/2020/03/07/titanic/">http://nieblog.me/2020/03/07/titanic/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://nieblog.me">CodeTrainer</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/机器学习/">机器学习    </a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/03/07/digit-recognizer/"><img class="next_cover lazyload" data-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/default.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>kaggle入门竞赛-数字识别</span></div></a></div></nav></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2017 - 2020 By 大巴斯基</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="ture"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
